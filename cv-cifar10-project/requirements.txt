@@ -1,5 +1,5 @@
-tensorflow
-matplotlib
+fastapi
+uvicorn
+tensorflow==2.14.0
 numpy
-scikit-learn
-seaborn
+pillow
