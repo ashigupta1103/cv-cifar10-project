@@ -43,11 +43,11 @@ Some classes like cat and dog are slightly misclassified due to visual similarit
 ---
 ## Future Work
 
-# -Implement data augmentation to improve generalization.
-# -Explore transfer learning with pre-trained models like ResNet or VGG.
-# -Deploy as a fully functional web application with real-time image input.
-# -Perform hyperparameter tuning to improve model accuracy.
-# -Add model explainability using Grad-CAM or other visualization techniques.
+### -Implement data augmentation to improve generalization.
+### -Explore transfer learning with pre-trained models like ResNet or VGG.
+### -Deploy as a fully functional web application with real-time image input.
+### -Perform hyperparameter tuning to improve model accuracy.
+### -Add model explainability using Grad-CAM or other visualization techniques.
 
 ---
 
