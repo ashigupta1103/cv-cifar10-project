@@ -1,3 +1,4 @@
+# app.py
 import streamlit as st
 import numpy as np
 from PIL import Image
@@ -10,10 +11,14 @@ st.set_page_config(page_title="CV CIFAR-10 Project", layout="centered")
 st.title("CV CIFAR-10 Project")
 st.write("Upload an image and get predictions from the trained CIFAR-10 CNN model.")
 
-@st.cache(allow_output_mutation=True)
+@st.cache_resource
 def load_cnn_model():
-    model = load_model("cifar10_cnn_model.keras")  # your saved Keras model
-    return model
+    try:
+        model = load_model("cifar10_cnn_model.keras")
+        return model
+    except Exception as e:
+        st.error(f"Failed to load model: {e}")
+        return None
 
 model = load_cnn_model()
 
@@ -21,7 +26,7 @@ class_names = ['airplane','automobile','bird','cat','deer',
                'dog','frog','horse','ship','truck']
 
 uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
-if uploaded_file is not None:
+if uploaded_file is not None and model is not None:
     image = Image.open(uploaded_file).convert("RGB")
     st.image(image, caption='Uploaded Image', use_column_width=True)
     st.write("")
