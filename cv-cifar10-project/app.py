@@ -1,4 +1,3 @@
-# app.py
 import streamlit as st
 import numpy as np
 from PIL import Image
@@ -11,10 +10,13 @@ st.set_page_config(page_title="CV CIFAR-10 Project", layout="centered")
 st.title("CV CIFAR-10 Project")
 st.write("Upload an image and get predictions from the trained CIFAR-10 CNN model.")
 
+MODEL_PATH = os.path.join(os.getcwd(), "cifar10_cnn_model.keras")
+CM_PATH = os.path.join(os.getcwd(), "results", "confusion_matrix.npy")
+
 @st.cache_resource
 def load_cnn_model():
     try:
-        model = load_model("cifar10_cnn_model.keras")
+        model = load_model(MODEL_PATH)
         return model
     except Exception as e:
         st.error(f"Failed to load model: {e}")
@@ -41,12 +43,13 @@ if uploaded_file is not None and model is not None:
     st.success(f"Predicted Class: {class_names[predicted_class]}")
 
 if st.checkbox("Show Confusion Matrix"):
-    cm_path = "results/confusion_matrix.npy"
-    if os.path.exists(cm_path):
-        cm = np.load(cm_path)
+    if os.path.exists(CM_PATH):
+        cm = np.load(CM_PATH)
         fig, ax = plt.subplots()
         sns.heatmap(cm, annot=True, fmt='d', xticklabels=class_names, yticklabels=class_names)
-        plt.xlabel('Predicted'); plt.ylabel('True'); plt.title('Confusion Matrix')
+        plt.xlabel('Predicted')
+        plt.ylabel('True')
+        plt.title('Confusion Matrix')
         st.pyplot(fig)
     else:
         st.warning("Confusion matrix not found. Make sure 'results/confusion_matrix.npy' exists.")
